@@ -45,9 +45,9 @@ async function seedDatabase(prisma) {
     console.log("Linked * permission to SUPER_ADMIN role");
   }
 
-  // 4. Create initial LMS ADMIN user
+  // 4. Create initial SYS ADMIN user
   const existingUser = await prisma.user.findUnique({
-    where: { email: "admin@lms.com" }, // give admin a default email
+    where: { email: "admin@sys.com" }, // give admin a default email
   });
 
   if (!existingUser) {
@@ -55,8 +55,8 @@ async function seedDatabase(prisma) {
 
     await prisma.user.create({
       data: {
-        name: "LMS ADMIN",
-        email: "admin@lms.com",
+        name: "SYS ADMIN",
+        email: "admin@sys.com",
         phoneno: "0000000000",
         password: hashedPassword,
         role: {
@@ -65,9 +65,9 @@ async function seedDatabase(prisma) {
       },
     });
 
-    console.log("LMS ADMIN user created with SUPER_ADMIN role");
+    console.log("SYS ADMIN user created with SUPER_ADMIN role");
   } else {
-    console.log("LMS ADMIN already exists, skipping user creation");
+    console.log("SYS ADMIN already exists, skipping user creation");
   }
 }
 
