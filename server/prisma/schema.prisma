@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User Model
+model User {
+  id       Int    @id @default(autoincrement())
+  name     String
+  email    String @unique
+  phoneno  String @unique
+  password String
+
+  // Each user belongs to exactly one Role (one-to-many)
+  role     Role   @relation(fields: [roleId], references: [id])
+  roleId   Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+//Role Model
+model Role {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  
+  // Many-to-Many with Permissions
+  permissions Permission[] @relation("RolePermissions")
+  
+  // One-to-Many with Users
+  users User[]
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+  
+//Permission Model
+model Permission {
+  id          Int    @id @default(autoincrement())
+  name        String @unique
+  description String?
+
+  // Many-to-Many with Roles
+  roles Role[] @relation("RolePermissions")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
