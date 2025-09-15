@@ -1,0 +1,33 @@
+{
+  "name": "node-postgres-boilerplate",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prisma:merge": "prisma-merge --input prisma/models --output prisma/models.prisma",
+    "prisma:generate": "npm run prisma:merge && prisma generate",
+    "prisma:migrate": "npm run prisma:merge && prisma migrate dev",
+    "start": "nodemon server.js",
+    "dev": "nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@prisma/client": "^6.15.0",
+    "bcrypt": "^6.0.0",
+    "body-parser": "^2.2.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "express-async-handler": "^1.2.0",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.1",
+    "nodemon": "^3.1.10",
+    "prisma": "^6.15.0"
+  },
+  "devDependencies": {
+    "prisma-merge": "^0.2.0"
+  }
+}
